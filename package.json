@@ -12,6 +12,9 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "fbgraphapi": "^0.5.0",
+    "fs": "0.0.1-security",
+    "node-cron": "^1.2.1",
     "request": "^2.83.0"
   }
 }
