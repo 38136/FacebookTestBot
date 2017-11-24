@@ -45,7 +45,7 @@ app.get('/', function (req, res) {
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
-    if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
+    if (req.query['hub.verify_token'] === 'abcd_123') {
         res.send(req.query['hub.challenge'])
     }
     res.send('Error, wrong token')
@@ -69,7 +69,7 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200)
 })
 
-const token = "EAAcu06jEOW8BAF40ny3xdLCKP0kOqMw0Kb6rIgbaxSLIPwdCoh5O0U8lrBFifd5glSl1AGEuhfB9sqOu4ZAalV65kThMWSZAMNhshyDAjJrR8i5LaoMEEKsexzw3DYGZCFmlKr6ZARdxnbovi9oRoZCJxOaPxQj0rQtJA9Xsc97VOKlY8URur"
+const token = "EAAcu06jEOW8BACw8WoruF0jN7dhnRiFyEnASsdFmZBf6DjxrPLP5JpSiAzdy8T0IZAGUy6ZAQuQpNRwDbQ2P6ht5ZArJ6U8ixykOlSLCunq7TObvBYHrepUibVZCZB9QGNZAVlBePGxZBjiW1HduWi1J8BN7zZCeUZBnJQnYo64qT4zUJ5UlZBQHK2A"
 function sendTextMessage(sender, text) {
     let messageData = { text:hi }
     request({
