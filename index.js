@@ -45,7 +45,7 @@ app.get('/', function (req, res) {
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
-    if (req.query['hub.verify_token'] === 'abcd_123') {
+    if (req.query['hub.verify_token'] === 'abcd1234') {
         res.send(req.query['hub.challenge'])
     }
     res.send('Error, wrong token')
@@ -57,19 +57,21 @@ app.listen(app.get('port'), function() {
 })
 
 app.post('/webhook/', function (req, res) {
+    console.log("getting into the post");
     let messaging_events = req.body.entry[0].messaging
     for (let i = 0; i < messaging_events.length; i++) {
         let event = req.body.entry[0].messaging[i]
         let sender = event.sender.id
         if (event.message && event.message.text) {
             let text = event.message.text
+             console.log("getting into the post 2");
             sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
         }
     }
     res.sendStatus(200)
 })
 
-const token = "EAAcu06jEOW8BACw8WoruF0jN7dhnRiFyEnASsdFmZBf6DjxrPLP5JpSiAzdy8T0IZAGUy6ZAQuQpNRwDbQ2P6ht5ZArJ6U8ixykOlSLCunq7TObvBYHrepUibVZCZB9QGNZAVlBePGxZBjiW1HduWi1J8BN7zZCeUZBnJQnYo64qT4zUJ5UlZBQHK2A"
+const token = "EAAcu06jEOW8BAKaHyGKQwXv5h3jQjBYf80a0JL1at0ZAabK8J1SrzHoE8YDaWlIPU1wdjv2WBImauHtCD3OxSpMTjEv4fO8mPxi4JRHefkYZAZAPWIyrafUDnB1lDcZCwrEwSPfZAvaxdmMY7KGZAWspGvIWOZBJHwQAZCIZCM9p7IzkNP1OmlZCZBx"
 function sendTextMessage(sender, text) {
     let messageData = { text:hi }
     request({
