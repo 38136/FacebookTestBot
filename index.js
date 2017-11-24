@@ -1,13 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const app  = express();
+const app = express();
 //index root
-app.set('port',(process.env.PORT||5000))
+app.set('port', (process.env.PORT || 5000))
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
-app.get('/', function(req,res){
+app.get('/', function (req, res) {
     res.send("Hello world, I am a chat bot");
 });
 
@@ -17,7 +19,7 @@ app.get('/webhook', function (req, res) {
     console.log(req.query['hub.mode'] + "hub_mode printing................");
     console.log(req.query['hub.verify_token'] + "verify printing................");
     console.log(JSON.stringify(req) + "hub_mode req................");
-    
+
     if (req.query['hub.mode'] === 'subscribe' &&
         req.query['hub.verify_token'] === 'abcd1234') {
         console.log("Validating webhook");
@@ -28,9 +30,36 @@ app.get('/webhook', function (req, res) {
     }
 });
 
+const token = "EAAcu06jEOW8BAF40ny3xdLCKP0kOqMw0Kb6rIgbaxSLIPwdCoh5O0U8lrBFifd5glSl1AGEuhfB9sqOu4ZAalV65kThMWSZAMNhshyDAjJrR8i5LaoMEEKsexzw3DYGZCFmlKr6ZARdxnbovi9oRoZCJxOaPxQj0rQtJA9Xsc97VOKlY8URur"
+
+function sendTextMessage(sender, text) {
+    let messageData = {
+        text: hi
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.10/me/messages',
+        qs: {
+            access_token: token
+        },
+        method: 'POST',
+        json: {
+            recipient: {
+                id: sender
+            },
+            message: "hi",
+        }
+    }, function (error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+
 
 // //spin up the server
-app.listen(app.get('port'), function(){
+app.listen(app.get('port'), function () {
     console.log('running on the port : 5000');
 });
 // -------------------------------------------
