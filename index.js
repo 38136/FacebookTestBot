@@ -16,7 +16,7 @@ app.get('/', function(req,res){
 app.get('/webhook', function (req, res) {
     console.log(req.query['hub.mode'] + "hub_mode printing................");
     console.log(req.query['hub.verify_token'] + "verify printing................");
-    console.log(req + "hub_mode req................");
+    console.log(JSON.stringify(req) + "hub_mode req................");
     
     if (req.query['hub.mode'] === 'subscribe' &&
         req.query['hub.verify_token'] === 'abcd1234') {
