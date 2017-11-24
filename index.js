@@ -13,12 +13,17 @@ app.get('/', function(req,res){
 
 
 //For facebook verification
-app.get('/webhook/', function(res, req){
-    if(req.query[hub.verify_token]==="test_bot"){
-        res.send(req.query['hub.challange'])
+app.get('/webhook', function (req, res) {
+    if (req.query['hub.mode'] === 'subscribe' &&
+        req.query['hub.verify_token'] === 'abcd1234') {
+        console.log("Validating webhook");
+        res.status(200).send(req.query['hub.challenge']);
+    } else {
+        console.error("Failed validation. Make sure the validation tokens match.");
+        res.sendStatus(403);
     }
-    res.send("error,wrong token");
 });
+
 
 // //spin up the server
 app.listen(app.get('port'), function(){
